@@ -7,7 +7,7 @@ app.secret_key = "12341234"
 
 app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = "PiguPigu149"
+app.config["MYSQL_PASSWORD"] = "yourpassword"
 app.config["MYSQL_DB"] = "login"
 
 db = MySQL(app)
@@ -23,12 +23,13 @@ def index():
             cursor.execute("SELECT * FROM logininfo WHERE email=%s AND password=%s", (username, password))
             info = cursor.fetchone()
             if info is not None:
-            if info['email'] == username and info['password'] == password:
-                return "login successfull"
+                if info['email'] == username and info['password'] == password:
+                    return "login successfull"
             else:
                 return "login unsuccesfull, please register"
     return render_template("login.html")
 
 
+@app.route('/new/profile')
 if __name__ == '__main__':
     app.run(debug=True)
